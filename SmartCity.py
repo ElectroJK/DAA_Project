@@ -35,7 +35,7 @@ print("Total rows in data after creating target variable:", data.shape[0])
 data['is_peak_hour'] = data['arrival_hour'].apply(lambda x: 1 if (7 <= x < 9) or (16 <= x < 18) else 0)
 
 features = ['deviceid', 'direction', 'bus_stop', 'arrival_hour', 'arrival_minute', 'day_of_week',
-            'dwell_time_in_seconds', 'is_peak_hour', 'address']  # Include 'address'
+            'dwell_time_in_seconds', 'is_peak_hour', 'address']
 target = 'time_to_next_stop'
 
 X = data[features]
@@ -73,8 +73,7 @@ def calculate_estimated_arrival_time(departure_time_str, transit_time):
         departure_dt = pd.to_datetime(departure_time_str)
 
         if isinstance(transit_time, (float, int)) and transit_time > 0:
-            # Cap the maximum transit time to avoid overflow
-            max_transit_time = 3600 * 24  # 24 hours in seconds
+            max_transit_time = 3600 * 24
             transit_time = min(transit_time, max_transit_time)
             estimated_arrival_dt = departure_dt + timedelta(seconds=transit_time)
             return estimated_arrival_dt
